@@ -1,0 +1,80 @@
+<html>
+<head>
+<script type="text/javascript">
+ function createTable()
+ {
+ 
+    var inp = document.getElementById('tblinp').value;
+    var rows = parseInt(inp.slice(1,inp.indexOf(",")));
+    var cols = parseInt(inp.slice(inp.indexOf(",")+1,inp.indexOf("]")));
+    var tbody = '';
+
+    for( var i=1; i<=rows;i++)
+    {
+        tbody += '<tr id=r'+i+'>';
+        for( var j=1; j<=cols;j++)
+        {
+            tbody += '<td id=c' + j+'>' ;
+            tbody += 'text';
+            tbody += '</td>';
+        }
+        tbody += '</tr>\n';
+    }
+    document.getElementById('tab').innerHTML = '<table border="1px" id="table1">\n' + tbody + '</table>';
+ }
+ function spanTable()
+ {
+    var inp = document.getElementById('spantbl').value;
+    var from_cell = parseInt(inp.split(",")[0].slice(7));
+    var to_cell = parseInt(inp.split(",")[1].slice(0,inp.split(",")[1].indexOf("]")));
+    var type = inp.split(",")[2].slice(5);
+    var number = inp.split(",")[3].slice(4,inp.split(",")[3].indexOf("}"));
+    var x; 
+    console.log(type.localeCompare("col"));
+    console.log(from_cell);
+    console.log(to_cell);
+    if(type.localeCompare("col") == 0)
+    { 
+        x="r";
+        var y=x+number;
+        console.log(y);
+        var ele =document.getElementById(y);
+        for(var i=from_cell ;i<=to_cell;i++)
+        {  console.log(i);
+           ele.deleteCell(from_cell-1);
+        }
+        var z=ele.insertCell((from_cell-1));
+        z.colSpan = (to_cell-from_cell)+1;
+        z.innerHTML = "span";
+    }
+    else
+    {
+        for(var i=from_cell;i<=to_cell;i++)
+        {
+            var y="r"+i;
+            var ele =document.getElementById(y);
+            ele.deleteCell(number);
+        }
+        y="r"+from_cell;
+        var z=document.getElementById(y);
+        var q=z.insertCell((from_cell-1));
+        q.rowSpan = (to_cell-from_cell)+1;
+        q.innerHTML = "span"; 
+    }
+ }
+</script>
+</head>
+
+<body>
+  <form name="tablegen">
+     <label>Table Dimensions <input type="text" name="tblinp" id="tblinp"/></label><br />
+     <input name="generate" type="button" value="Create Table!" onclick='createTable();' placeholder = "[1,2]"/>
+  </form>
+  <form name="tablespan">
+     <label>Span Dimensions <input type="text"  name="spantbl" id="spantbl"></label><br/>
+     <input name="spam" type="button" value="Span table" onclick = 'spanTable();' /> 
+  </form>
+
+  <div id="tab"></div>
+</body>
+</html>

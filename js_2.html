@@ -1,0 +1,110 @@
+<html>
+<head>
+<style>
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    background-color: green;
+}
+th {
+    padding: 50px;
+    text-align: centre;    
+}
+
+</style>
+</head>
+<body id="window" bgcolor = "grey" onclick = "changebg()">
+  
+
+<table style="width:300px " onclick="selectCheckBoxes()" align="center">
+  <tr>
+    <th>
+        <div id="div1" onclick = "clickedondiv2()" style="border: 1px solid black; height:100px;width:70px; background-color: yellow;" >
+        <br/>  
+        <input id="cb1"  type="checkbox"></input><br/><br/>
+        <input id="cb2" type="checkbox"></input>
+        </div>
+    </th>
+    <th>
+         <div  id="div2" onclick = "clickedondiv1()" style="border: 1px solid black; height:100px;width:70px;background-color: blue;">  
+         <br/>
+         <input  id="cb3" type="checkbox" ></input><br/><br/>
+         <input id="cb4" type="checkbox"></input>
+         </div>
+    </th>
+  </tr>
+  
+</table>
+
+</body>
+<script>
+
+function clickedondiv1() {
+    console.log("coming in div1")
+ if (document.getElementById("div1").style.backgroundColor == "yellow") 
+    { 
+        document.getElementById("div1").style.backgroundColor = "blue";
+        document.getElementById("div2").style.backgroundColor = "yellow";
+    }
+    else
+    {
+        document.getElementById("div1").style.backgroundColor = "yellow";
+        document.getElementById("div2").style.backgroundColor = "blue";
+    }
+    document.getElementById("cb1").checked=true;
+    document.getElementById("cb2").checked=true;
+    document.getElementById("cb3").checked=false;
+    document.getElementById("cb4").checked=false;
+
+};
+function clickedondiv2() {
+    console.log("coming in div2")
+ if (document.getElementById("div2").style.backgroundColor == "yellow") 
+    { 
+        document.getElementById("div2").style.backgroundColor = "blue";
+        document.getElementById("div1").style.backgroundColor = "yellow";
+    }
+    else
+    {
+        document.getElementById("div2").style.backgroundColor = "yellow";
+        document.getElementById("div1").style.backgroundColor = "blue";
+    }
+    document.getElementById("cb3").checked=true;
+    document.getElementById("cb4").checked=true;
+    document.getElementById("cb1").checked=false;
+    document.getElementById("cb2").checked=false;
+
+};
+
+
+
+
+function changebg() {
+    console.log("coming in changebg")
+ document.body.style.backgroundColor = Math.floor(Math.random()*90000) + 10000;
+};
+
+function selectCheckBoxes() {
+    console.log("coming to selectCheckBoxes")
+if ( document.getElementById("cb1").checked)
+document.getElementById("cb1").checked = false;
+else 
+document.getElementById("cb1").checked = true;
+
+if ( document.getElementById("cb2").checked)
+document.getElementById("cb2").checked = false;
+else 
+document.getElementById("cb2").checked = true;
+
+if ( document.getElementById("cb3").checked)
+document.getElementById("cb3").checked = false;
+else 
+document.getElementById("cb3").checked = true;
+
+if ( document.getElementById("cb4").checked)
+document.getElementById("cb4").checked = false;
+else 
+document.getElementById("cb4").checked = true;
+};
+</script>
+</html>
