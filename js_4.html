@@ -1,0 +1,85 @@
+<html>
+<body onload="savetime();">
+
+<p id = "ss"> </p>
+
+<input type="file" id="myfile">
+
+<button onclick="file_submit()">upload</button>
+
+<p id = "upload_button"> </p>
+
+</body>
+<script>
+
+var x = localStorage.getItem("button_clicked");
+if (x != null)
+document.getElementById('upload_button').innerHTML = "Total No of Times upload clicked is" + x;
+else
+document.getElementById('upload_button').innerHTML = "Total No of Times upload clicked is 0";
+
+
+function file_submit() {
+	console.log("in file submit");
+    var files = document.getElementById('myfile').files;
+    if (!files.length) {
+        alert('Please select a file!');
+        return;
+    }
+    var file = files[0];
+    if (file.type.localeCompare("text/plain")!==0) {
+        alert('Please upload a text file!');
+        return;
+    }
+    var reader = new FileReader(files);
+      console.log("in file submit");
+    reader.onload = function(e) {
+      console.log("in file submit");
+      var text = parseInt(reader.result);
+      var button_click = localStorage.getItem("button_clicked")
+      if (button_click == null)
+      {
+      	localStorage.setItem("button_clicked",text);
+      	document.getElementById('upload_button').innerHTML = "Total No of Times upload clicked is" + text;
+      }
+      else
+      {
+        button_click = parseInt(button_click) + text;
+        localStorage.setItem("button_clicked",button_click);
+        document.getElementById('upload_button').innerHTML = "Total No of Times upload clicked is" + button_click;
+      } 
+    }
+    var  data = reader.readAsText(file);
+
+    
+    
+ }
+
+
+
+function savetime() {
+
+ var last_sync = localStorage.getItem("last_sync")
+ var currentdate = new Date(); 
+ var datetime = "Last opened at: " + currentdate.getDate() + "/" + (currentdate.getMonth()+1)  + "/" + currentdate.getFullYear() + " @ "   + currentdate.getHours() + ":"   + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+
+ if (last_sync == null)
+ {
+ 	console.log("new");
+    localStorage.setItem("last_sync",datetime); 
+    document.getElementById('ss').innerHTML = datetime;
+ }
+ else
+ {
+    console.log("in already");
+    var last_open = localStorage.getItem("last_sync");
+    document.getElementById('ss').innerHTML = last_open;
+    localStorage.setItem("last_sync",datetime); 
+      
+ }
+}
+
+
+</script>
+
+</html>
